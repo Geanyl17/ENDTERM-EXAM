@@ -1,5 +1,6 @@
 using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.UI; // For UI Button functionality
+
 public class HitAreaSwitcher : MonoBehaviour
 {
     public HitAreaShape currentShape = HitAreaShape.Circle;
@@ -13,30 +14,40 @@ public class HitAreaSwitcher : MonoBehaviour
     public Sprite triangleSprite;
     public Sprite RectangleSprite;
 
+    // References to UI Buttons for each shape
+    public Button circleButton;
+    public Button squareButton;
+    public Button triangleButton;
+    public Button rectangleButton;
+
     void Start()
     {
+        // Update the visuals on start
         UpdateVisuals();
+
+        // Add listeners for the buttons
+        circleButton.onClick.AddListener(() => SetShape(HitAreaShape.Circle));
+        squareButton.onClick.AddListener(() => SetShape(HitAreaShape.Square));
+        triangleButton.onClick.AddListener(() => SetShape(HitAreaShape.Triangle));
+        rectangleButton.onClick.AddListener(() => SetShape(HitAreaShape.Rectangle));
     }
 
     void Update()
     {
-        // Check for Xbox controller button presses:
-        // A button (JoystickButton0) -> Circle
-        if (Input.GetKeyDown(KeyCode.JoystickButton0))
+        // Check for controller button presses (Xbox controller example)
+        if (Input.GetKeyDown(KeyCode.JoystickButton0)) // A button -> Circle
         {
             SetShape(HitAreaShape.Circle);
         }
-        // B button (JoystickButton1) -> Square
-        else if (Input.GetKeyDown(KeyCode.JoystickButton1))
+        else if (Input.GetKeyDown(KeyCode.JoystickButton1)) // B button -> Square
         {
             SetShape(HitAreaShape.Square);
         }
-        // X button (JoystickButton2) -> Triangle
-        else if (Input.GetKeyDown(KeyCode.JoystickButton2))
+        else if (Input.GetKeyDown(KeyCode.JoystickButton2)) // X button -> Triangle
         {
             SetShape(HitAreaShape.Triangle);
         }
-        else if (Input.GetKeyDown(KeyCode.JoystickButton3))
+        else if (Input.GetKeyDown(KeyCode.JoystickButton3)) // Y button -> Rectangle
         {
             SetShape(HitAreaShape.Rectangle);
         }
@@ -50,7 +61,7 @@ public class HitAreaSwitcher : MonoBehaviour
 
     void UpdateVisuals()
     {
-        // Update the sprite based on the current shape.
+        // Update the sprite based on the current shape
         switch (currentShape)
         {
             case HitAreaShape.Circle:
@@ -68,7 +79,7 @@ public class HitAreaSwitcher : MonoBehaviour
         }
     }
 
-    // Optional: Collision detection for notes can be added here.
+    // Optional: Collision detection for notes can be added here
     void OnTriggerEnter2D(Collider2D other)
     {
         // Example collision logic:
