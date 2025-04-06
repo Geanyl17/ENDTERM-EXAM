@@ -65,28 +65,38 @@ public class HitAreaSwitcher : MonoBehaviour
         switch (currentShape)
         {
             case HitAreaShape.Circle:
-                hitAreaSpriteRenderer.sprite = circleSprite;
+                hitAreaSpriteRenderer.sprite = circleSprite; //green
                 break;
             case HitAreaShape.Square:
-                hitAreaSpriteRenderer.sprite = squareSprite;
+                hitAreaSpriteRenderer.sprite = squareSprite; //red  
                 break;
             case HitAreaShape.Triangle:
-                hitAreaSpriteRenderer.sprite = triangleSprite;
+                hitAreaSpriteRenderer.sprite = triangleSprite; //blue
                 break;
             case HitAreaShape.Rectangle:
-                hitAreaSpriteRenderer.sprite = RectangleSprite;
+                hitAreaSpriteRenderer.sprite = RectangleSprite; //yellow
                 break;
         }
     }
 
-    // Optional: Collision detection for notes can be added here
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Example collision logic:
-        // Note note = other.GetComponent<Note>();
-        // if (note != null && note.noteShape == currentShape)
-        // {
-        //     Debug.Log("Correct hit!");
-        // }
+        Note note = other.GetComponent<Note>();
+        if (note != null)
+        {
+            if (note.noteShape == currentShape)
+            {
+                GameManager.Instance.RegisterHit(); // Register hit in GameManager
+                Debug.Log($"✅ HIT! Matched: {note.noteShape}");
+                Destroy(other.gameObject); // or trigger score FX
+            }
+            else
+            {
+                GameManager.Instance.RegisterMiss(); // Register miss in GameManager
+                Debug.Log($"❌ MISS! Expected {currentShape}, got {note.noteShape}");
+                Destroy(other.gameObject); // or trigger miss FX
+            }
+        }
     }
+
 }
