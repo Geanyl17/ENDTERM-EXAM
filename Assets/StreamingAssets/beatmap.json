@@ -1,6 +1,13 @@
 [
-    { "time": 1, "type": "square" },
-    { "time": 5, "type": "circle" },
-    { "time": 10, "type": "rectangle" }
-]
+    { "time": 0.5, "type": "circle" },
+    { "time": 2, "type": "square" },
+    { "time": 4, "type": "triangle" },
+    { "time": 8, "type": "circle" },
+    { "time": 10, "type": "shake" },
+    { "time": 12, "type": "square" },
+    { "time": 14, "type": "triangle" },
+    { "time": 16, "type": "circle" },
+    { "time": 18, "type": "shake" },
+    { "time": 20, "type": "square" }
+  ]
   

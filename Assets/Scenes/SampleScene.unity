@@ -648,6 +648,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystick: {fileID: 183837198}
   deadZone: 0.2
+--- !u!1 &461510170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 461510172}
+  - component: {fileID: 461510171}
+  m_Layer: 0
+  m_Name: ShakeDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &461510171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461510170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a66e5023c5a7dfa4bb7d6a55b57eb781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeThreshold: 1
+  minInterval: 0.1
+--- !u!4 &461510172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461510170}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.963314, y: -0.1290483, z: -0.057337992}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1142,8 @@ MonoBehaviour:
   circleNotePrefab: {fileID: 2426846172282861137, guid: eac61e59634798f4e924eb319f8bfa76, type: 3}
   squareNotePrefab: {fileID: 7891874841114290898, guid: 63bfa0210eeb5304bb1e1bec76c55a99, type: 3}
   triangleNotePrefab: {fileID: 2017854798881643671, guid: 642116a57d305294aa50a82433b9b167, type: 3}
-  shakeNotePrefab: {fileID: 809567772751498082, guid: 80067dbaf17446d48b435402a1bc40b9, type: 3}
+  rectangleNotePrefab: {fileID: 809567772751498082, guid: 80067dbaf17446d48b435402a1bc40b9, type: 3}
+  shakeNotePrefab: {fileID: 4346650632495734693, guid: b0cd9b67e4a362547a45194f426afbdb, type: 3}
 --- !u!4 &929914440
 Transform:
   m_ObjectHideFlags: 0
@@ -1123,7 +1170,7 @@ GameObject:
   - component: {fileID: 1057988464}
   - component: {fileID: 1057988463}
   m_Layer: 0
-  m_Name: Circle (1)
+  m_Name: Circle(1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1933,3 +1980,4 @@ SceneRoots:
   - {fileID: 50855547}
   - {fileID: 1122071033}
   - {fileID: 736416844}
+  - {fileID: 461510172}

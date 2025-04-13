@@ -1,28 +1,63 @@
 using UnityEngine;
+using System.Collections;
 
 public class ShakeDetector : MonoBehaviour
 {
-    public float shakeThreshold = 2.5f; // Tweak this value depending on device
-    public float cooldown = 0.5f;       // To avoid detecting multiple shakes too fast
+    public float maxAcceleration = 0.8f;  // Detect when acceleration is below this
+    public float minDrop = 0.2f;          // AND drop is above this
+    public float minShakeInterval = 0.5f;
+    public float checkInterval = 0.1f;    // Only check every 0.1 seconds instead of every frame
+    private float lastShakeTime;
+    private float lastCheckTime;
+    private Vector3 lastAcceleration;
+    private float lowPassFilterFactor = 0.1f; // Reduced smoothing for less sensitivity
+    private float gravity = 1.0f;  // Normal gravity value when phone is still
 
-    private float lastShakeTime = 0f;
+    public event System.Action OnShakeDetected;
 
-    public System.Action OnShakeDetected;
+    void Start()
+    {
+        lastAcceleration = Input.acceleration;
+        lastCheckTime = Time.time;
+    }
 
     void Update()
     {
-        if (Time.time - lastShakeTime > cooldown)
+        // Only check for shakes at the specified interval
+        if (Time.time - lastCheckTime < checkInterval)
+            return;
+
+        lastCheckTime = Time.time;
+
+        // Skip if we're in cooldown
+        if (Time.time - lastShakeTime < minShakeInterval)
+            return;
+
+        // Get current acceleration
+        Vector3 currentAcceleration = Input.acceleration;
+        
+        // Apply low-pass filter to smooth the values
+        currentAcceleration = Vector3.Lerp(lastAcceleration, currentAcceleration, lowPassFilterFactor);
+        
+        // Calculate magnitude of acceleration
+        float accelerationMagnitude = currentAcceleration.magnitude;
+        
+        // Calculate how much the acceleration has dropped from normal gravity
+        float dropFromGravity = gravity - accelerationMagnitude;
+        
+        // Debug values
+        Debug.Log($"Acceleration: {accelerationMagnitude:F2}, Drop: {dropFromGravity:F2}, MaxAccel: {maxAcceleration:F2}, MinDrop: {minDrop:F2}");
+
+        // Detect shake when BOTH conditions are met:
+        // 1. Acceleration is below maxAcceleration
+        // 2. Drop is above minDrop
+        if (accelerationMagnitude <= maxAcceleration && dropFromGravity >= minDrop)
         {
-            float acceleration = Input.acceleration.magnitude;
-
-            if (acceleration > shakeThreshold)
-            {
-                lastShakeTime = Time.time;
-                Debug.Log("📱 Shake detected!");
-
-                // Call any assigned function
-                OnShakeDetected?.Invoke();
-            }
+            lastShakeTime = Time.time;
+            Debug.Log("📱 SHAKE DETECTED!");
+            OnShakeDetected?.Invoke();
         }
+
+        lastAcceleration = currentAcceleration;
     }
 }
