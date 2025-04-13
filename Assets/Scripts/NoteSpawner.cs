@@ -1,46 +1,52 @@
 using UnityEngine;
+using System.IO;
 
 public class NoteSpawner : MonoBehaviour
 {
-    [System.Serializable]
-    public struct ShapePrefab
+    public GameObject circleNotePrefab;
+    public GameObject squareNotePrefab;
+    public GameObject triangleNotePrefab;
+    public GameObject shakeNotePrefab;
+
+   // public AudioSource music;
+    private BeatmapNote[] notes;
+    private int nextNoteIndex = 0;
+
+    void Start()
     {
-        public HitAreaShape shape;
-        public GameObject prefab;
+        string path = Path.Combine(Application.streamingAssetsPath, "beatmap.json");
+        string json = File.ReadAllText(path);
+        notes = JsonHelper.FromJson<BeatmapNote>(json);
+
+       // music.Play();
     }
-
-    public ShapePrefab[] notePrefabs;
-    public float spawnInterval = 1.5f;
-    public float spawnRadius = 6f;
-
-    private float timer;
 
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= spawnInterval)
-        {
-            SpawnRandomNote();
-            timer = 0f;
-        }
+        if (notes == null || nextNoteIndex >= notes.Length) return;
+
+       // if (music.time >= notes[nextNoteIndex].time)
+        
+            SpawnNote(notes[nextNoteIndex]);
+            nextNoteIndex++;
+        
     }
 
-    void SpawnRandomNote()
+    void SpawnNote(BeatmapNote note)
     {
-        int index = Random.Range(0, notePrefabs.Length);
-        ShapePrefab selected = notePrefabs[index];
+        GameObject prefab = null;
 
-        // Calculate a random direction around the center
-        float angle = Random.Range(0f, 360f);
-        Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-        Vector2 spawnPos = (Vector2)transform.position + direction * spawnRadius;
-
-        // Instantiate and assign noteShape
-        GameObject noteGO = Instantiate(selected.prefab, spawnPos, Quaternion.identity);
-        Note note = noteGO.GetComponent<Note>();
-        if (note != null)
+        switch (note.type.ToLower())
         {
-            note.noteShape = selected.shape;
+            case "circle": prefab = circleNotePrefab; break;
+            case "square": prefab = squareNotePrefab; break;
+            case "triangle": prefab = triangleNotePrefab; break;
+            case "shake": prefab = shakeNotePrefab; break;
+        }
+
+        if (prefab != null)
+        {
+            Instantiate(prefab, transform.position, Quaternion.identity);
         }
     }
 }

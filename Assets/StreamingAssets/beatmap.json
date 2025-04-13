@@ -1,0 +1,6 @@
+[
+    { "time": 1, "type": "square" },
+    { "time": 5, "type": "circle" },
+    { "time": 10, "type": "rectangle" }
+]
+  
