@@ -74,7 +74,7 @@ public class HitAreaSwitcher : MonoBehaviour
                 hitAreaSpriteRenderer.sprite = triangleSprite; //blue
                 break;
             case HitAreaShape.Rectangle:
-                hitAreaSpriteRenderer.sprite = RectangleSprite; //yellow
+                hitAreaSpriteRenderer.sprite = RectangleSprite; //yellow AND shape is X
                 break;
         }
     }
