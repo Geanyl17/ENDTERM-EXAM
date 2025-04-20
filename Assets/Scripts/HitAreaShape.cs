@@ -1,7 +1,10 @@
-public enum HitAreaShape
+namespace GameTech
 {
-    Circle,
-    Square,
-    Triangle,
-    Rectangle
+    public enum HitAreaShape
+    {
+        Circle,
+        Square,
+        Triangle,
+        Rectangle
+    }
 }

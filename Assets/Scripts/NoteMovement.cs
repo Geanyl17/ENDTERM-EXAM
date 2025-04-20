@@ -12,6 +12,7 @@ namespace GameTech
 
         private Vector3 originalScale;
         private float pulseTime;
+        private bool hasScored = false;
 
         void Start()
         {
@@ -19,7 +20,7 @@ namespace GameTech
             pulseTime = 0f;
         }
 
-        private void Update()
+        void Update()
         {
             // Move towards target position
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
@@ -32,9 +33,20 @@ namespace GameTech
             float pulse = Mathf.Sin(pulseTime * pulseSpeed * Mathf.PI * 2) * pulseAmount;
             transform.localScale = originalScale * (1f + pulse);
 
+            // Check if note is close to center for scoring
+            if (!hasScored && Vector3.Distance(transform.position, targetPosition) < 0.5f)
+            {
+                hasScored = true;
+                GameManager.Instance.RegisterHit();
+            }
+
             // Destroy when reaching target
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
+                if (!hasScored)
+                {
+                    GameManager.Instance.RegisterMiss();
+                }
                 Destroy(gameObject);
             }
         }

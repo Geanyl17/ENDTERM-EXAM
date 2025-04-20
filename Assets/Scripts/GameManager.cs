@@ -1,32 +1,62 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour
+namespace GameTech
 {
-    public static GameManager Instance;
-
-    public int score = 0;
-    public int combo = 0;
-
-    public ComboUI comboUI; // ← reference to UI script
-
-    void Awake()
+    public class GameManager : MonoBehaviour
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-    }
+        public static GameManager Instance;
 
-    public void RegisterHit()
-    {
-        combo++;
-        score += 100 * combo;
-        Debug.Log($"✅ HIT | Score: {score} | Combo: {combo}");
-        comboUI.UpdateCombo(combo);
-    }
+        public int score = 0;
+        public int combo = 0;
 
-    public void RegisterMiss()
-    {
-        combo = 0;
-        Debug.Log("❌ MISS | Combo reset.");
-        comboUI.UpdateCombo(combo);
+        [SerializeField] private NumberDisplay scoreDisplay;
+        [SerializeField] private ComboDisplay comboDisplay;
+
+        void Awake()
+        {
+            if (Instance == null) Instance = this;
+            else Destroy(gameObject);
+        }
+
+        void Start()
+        {
+            // Initialize displays
+            UpdateScoreDisplay();
+            UpdateComboDisplay();
+        }
+
+        public void RegisterHit()
+        {
+            combo++;
+            score += 100 * combo;
+            Debug.Log($"✅ HIT | Score: {score} | Combo: {combo}");
+            UpdateScoreDisplay();
+            UpdateComboDisplay();
+        }
+
+        public void RegisterMiss()
+        {
+            combo = 0;
+            Debug.Log("❌ MISS | Combo reset.");
+            UpdateComboDisplay();
+        }
+
+        private void UpdateScoreDisplay()
+        {
+            if (scoreDisplay != null)
+            {
+                scoreDisplay.DisplayNumber(score);
+            }
+        }
+
+        private void UpdateComboDisplay()
+        {
+            if (comboDisplay != null)
+            {
+                comboDisplay.DisplayCombo(combo);
+            }
+        }
     }
 }

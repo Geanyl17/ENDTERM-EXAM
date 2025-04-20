@@ -1,39 +1,43 @@
 using UnityEngine;
 
-public class Note : MonoBehaviour
+namespace GameTech
 {
-    public HitAreaShape noteShape;
-    public float moveSpeed = 5f;
-
-    private Transform target;
-
-    void Start()
+    public class Note : MonoBehaviour
     {
-        // Look for the HitArea GameObject by tag
-        GameObject hitArea = GameObject.FindGameObjectWithTag("HitArea");
-        if (hitArea != null)
+        public HitAreaShape noteShape;
+        public float moveSpeed = 5f;
+
+        private Transform target;
+
+        void Start()
         {
-            target = hitArea.transform;
+            // Look for the HitArea GameObject by tag
+            GameObject hitArea = GameObject.FindGameObjectWithTag("HitArea");
+            if (hitArea != null)
+            {
+                target = hitArea.transform;
+            }
+            else
+            {
+                Debug.LogWarning("HitArea not found! Make sure it's tagged 'HitArea'");
+            }
         }
-        else
+
+        void Update()
         {
-            Debug.LogWarning("HitArea not found! Make sure it’s tagged 'HitArea'");
+            if (target == null) return;
+
+            transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
         }
-    }
 
-    void Update()
-    {
-        if (target == null) return;
-
-        transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-    }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("HitArea"))
+        void OnTriggerEnter2D(Collider2D other)
         {
-            GameManager.Instance.RegisterMiss(); // Register hit in GameManager
-            Debug.Log($"Note {noteShape} reached the HitArea!");
-            Destroy(gameObject); // Destroy the note after it reaches the HitArea
+            if (other.CompareTag("HitArea"))
+            {
+                GameManager.Instance.RegisterMiss(); // Register hit in GameManager
+                Debug.Log($"Note {noteShape} reached the HitArea!");
+                Destroy(gameObject); // Destroy the note after it reaches the HitArea
+            }
         }
     }
 }

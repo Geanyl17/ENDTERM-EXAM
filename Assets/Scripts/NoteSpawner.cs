@@ -1,67 +1,37 @@
 using UnityEngine;
-<<<<<<< Updated upstream
-=======
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using GameTech;
 using UnityEngine.Networking;
->>>>>>> Stashed changes
+using System;
+using GameTech;
 
 namespace GameTech
 {
-<<<<<<< Updated upstream
-    [System.Serializable]
-    public struct ShapePrefab
-    {
-        public HitAreaShape shape;
-        public GameObject prefab;
-    }
-
-    public ShapePrefab[] notePrefabs;
-    public float spawnInterval = 1.5f;
-    public float spawnRadius = 6f;
-
-    private float timer;
-
-    void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer >= spawnInterval)
-        {
-            SpawnRandomNote();
-            timer = 0f;
-        }
-    }
-
-    void SpawnRandomNote()
-    {
-        int index = Random.Range(0, notePrefabs.Length);
-        ShapePrefab selected = notePrefabs[index];
-
-        // Calculate a random direction around the center
-        float angle = Random.Range(0f, 360f);
-        Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-        Vector2 spawnPos = (Vector2)transform.position + direction * spawnRadius;
-
-        // Instantiate and assign noteShape
-        GameObject noteGO = Instantiate(selected.prefab, spawnPos, Quaternion.identity);
-        Note note = noteGO.GetComponent<Note>();
-        if (note != null)
-        {
-            note.noteShape = selected.shape;
-        }
-    }
-}
-=======
     public class NoteSpawner : MonoBehaviour
     {
+        [Serializable]
+        private class JsonHelper
+        {
+            public static T[] FromJson<T>(string json)
+            {
+                Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>("{\"items\":" + json + "}");
+                return wrapper.items;
+            }
+
+            [Serializable]
+            private class Wrapper<T>
+            {
+                public T[] items;
+            }
+        }
+
         public GameObject circleNotePrefab;
         public GameObject squareNotePrefab;
         public GameObject triangleNotePrefab;
         public GameObject rectangleNotePrefab;
         public GameObject shakeNotePrefab;
-        public GlowPulseVisualizer visualizer; // Reference to the visualizer
+        public GlowPulseVisualizer visualizer;
 
         private AudioSource music;
         private BeatmapNote[] notes;
@@ -74,19 +44,19 @@ namespace GameTech
         public float spawnRadius = 8f;
         public float minAngle = 0f;
         public float maxAngle = 360f;
-        public float angleStep = 45f; // Angle between consecutive notes
-        public float noteMovementSpeed = 2.0f; // Units per second
-        public float noteRotationSpeed = 180f; // Degrees per second
-        public float notePulseSpeed = 2f; // Pulses per second
-        public float notePulseAmount = 0.1f; // How much to scale up/down
+        public float angleStep = 45f;
+        public float noteMovementSpeed = 2.0f;
+        public float noteRotationSpeed = 180f;
+        public float notePulseSpeed = 2f;
+        public float notePulseAmount = 0.1f;
 
         void Start()
         {
             // Set up audio source
             music = gameObject.AddComponent<AudioSource>();
             music.playOnAwake = false;
-            music.loop = false; 
-            music.volume = 0.05f; //volume
+            music.loop = false;
+            music.volume = 0.05f;
 
             // Connect audio to visualizer if it exists
             if (visualizer != null)
@@ -124,7 +94,6 @@ namespace GameTech
         }
 
         private float timer = 0f;
-        private float currentAngle = 0f;
 
         void Update()
         {
@@ -172,12 +141,10 @@ namespace GameTech
                 ShakeNote shakeNote = noteObj.GetComponent<ShakeNote>();
                 if (shakeNote != null)
                 {
-                    // Set the duration from the JSON if specified, otherwise use default
                     if (note.duration > 0)
                     {
                         shakeNote.duration = note.duration;
                     }
-                    // Subscribe to the note's completion
                     shakeNote.OnNoteCompleted += HandleShakeNoteCompleted;
                 }
             }
@@ -187,15 +154,6 @@ namespace GameTech
         {
             isShakeNoteActive = false;
             currentShakeNote = null;
-        }
-
-        public void SpawnShakeNote(float time, float duration = 1.0f)
-        {
-            GameObject note = Instantiate(shakeNotePrefab, transform.position, Quaternion.identity);
-            ShakeNote shakeNote = note.GetComponent<ShakeNote>();
-            shakeNote.duration = duration;
-            shakeNote.OnNoteCompleted += () => activeNotes.Remove(note);
-            activeNotes.Add(note);
         }
 
         private GameObject GetNotePrefab(string type)
@@ -212,4 +170,3 @@ namespace GameTech
         }
     }
 }
->>>>>>> Stashed changes
