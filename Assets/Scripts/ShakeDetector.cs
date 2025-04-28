@@ -1,59 +1,115 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 public class ShakeDetector : MonoBehaviour
 {
-    public float maxAcceleration = 0.8f;  // Detect when acceleration is below this
-    public float minDrop = 0.2f;          // AND drop is above this
-    public float minShakeInterval = 0.5f;
-    public float checkInterval = 0.1f;    // Only check every 0.1 seconds instead of every frame
-    private float lastShakeTime;
-    private float lastCheckTime;
-    private Vector3 lastAcceleration;
-    private float lowPassFilterFactor = 0.1f; // Reduced smoothing for less sensitivity
-    private float gravity = 1.0f;  // Normal gravity value when phone is still
+    [Header("Detection Settings")]
+    [Tooltip("Max allowed acceleration magnitude to trigger shake")]
+    [Range(0.1f, 1.5f)] public float maxAcceleration = 0.8f;
+    
+    [Tooltip("Minimum drop from normal gravity to trigger")]
+    [Range(0.1f, 0.5f)] public float minDrop = 0.2f;
+    
+    [Tooltip("Minimum time between shake detections (seconds)")]
+    [Range(0.1f, 1f)] public float minShakeInterval = 0.5f;
+    
+    [Header("Advanced")]
+    [Tooltip("How often to check for shakes (seconds)")]
+    [Range(0.02f, 0.2f)] public float checkInterval = 0.1f;
+    
+    [Tooltip("Smoothing factor (lower = smoother)")]
+    [Range(0.05f, 0.3f)] public float lowPassFilterFactor = 0.1f;
+    
+    [Tooltip("Expected gravity magnitude when device is still")]
+    [Range(0.8f, 1.2f)] public float expectedGravity = 1.0f;
 
-    public event System.Action OnShakeDetected;
+    // Debugging
+    public bool showDebug = false;
+    
+    private float _lastShakeTime;
+    private float _lastCheckTime;
+    private Vector3 _lastAcceleration;
+    private Vector3 _lowPassValue;
+    
+    public event Action OnShakeDetected;
 
     void Start()
     {
-        lastAcceleration = Input.acceleration;
-        lastCheckTime = Time.time;
+        _lastAcceleration = Input.acceleration;
+        _lowPassValue = _lastAcceleration;
+        _lastCheckTime = Time.time;
+        
+        if (SystemInfo.supportsGyroscope)
+        {
+            Input.gyro.enabled = true;
+        }
     }
 
     void Update()
     {
-        // Only check for shakes at the specified interval
-        if (Time.time - lastCheckTime < checkInterval)
+        float currentTime = Time.time;
+        
+        // Throttle checks to reduce CPU usage
+        if (currentTime - _lastCheckTime < checkInterval)
+            return;
+            
+        _lastCheckTime = currentTime;
+
+        // Skip if in cooldown
+        if (currentTime - _lastShakeTime < minShakeInterval)
             return;
 
-        lastCheckTime = Time.time;
-
-        // Skip if we're in cooldown
-        if (Time.time - lastShakeTime < minShakeInterval)
-            return;
-
-        // Get current acceleration
+        // Get and filter acceleration
         Vector3 currentAcceleration = Input.acceleration;
+        _lowPassValue = Vector3.Lerp(_lowPassValue, currentAcceleration, lowPassFilterFactor);
         
-        // Apply low-pass filter to smooth the values
-        currentAcceleration = Vector3.Lerp(lastAcceleration, currentAcceleration, lowPassFilterFactor);
-        
-        // Calculate magnitude of acceleration
-        float accelerationMagnitude = currentAcceleration.magnitude;
-        
-        // Calculate how much the acceleration has dropped from normal gravity
-        float dropFromGravity = gravity - accelerationMagnitude;
-        
-        // Debug values
-       // Debug.Log($"Acceleration: {accelerationMagnitude:F2}, Drop: {dropFromGravity:F2}, MaxAccel: {maxAcceleration:F2}, MinDrop: {minDrop:F2}");
+        // Calculate magnitude and drop
+        float accelMagnitude = _lowPassValue.magnitude;
+        float dropFromGravity = expectedGravity - accelMagnitude;
 
-        if (accelerationMagnitude <= maxAcceleration && dropFromGravity >= minDrop)
+        if (showDebug)
         {
-          lastShakeTime = Time.time;
-           OnShakeDetected?.Invoke();
+            Debug.Log($"Accel: {accelMagnitude:F2} | " +
+                     $"Drop: {dropFromGravity:F2} | " +
+                     $"Filtered: {_lowPassValue}");
         }
 
-        lastAcceleration = currentAcceleration;
+        // Detection condition
+        if (accelMagnitude <= maxAcceleration && dropFromGravity >= minDrop)
+        {
+            _lastShakeTime = currentTime;
+            OnShakeDetected?.Invoke();
+        }
+
+        _lastAcceleration = currentAcceleration;
+    }
+
+    // Helper to adjust detection for current device
+    public void CalibrateForCurrentDevice()
+    {
+        // Sample current device gravity over 1 second
+        StartCoroutine(CalibrationRoutine());
+    }
+
+    private IEnumerator CalibrationRoutine()
+    {
+        float calibrationDuration = 1f;
+        float endTime = Time.time + calibrationDuration;
+        int samples = 0;
+        Vector3 totalAcceleration = Vector3.zero;
+
+        while (Time.time < endTime)
+        {
+            totalAcceleration += Input.acceleration;
+            samples++;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        if (samples > 0)
+        {
+            expectedGravity = (totalAcceleration / samples).magnitude;
+            if (showDebug) Debug.Log($"Calibrated gravity: {expectedGravity:F2}");
+        }
     }
 }
