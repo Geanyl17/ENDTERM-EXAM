@@ -56,7 +56,7 @@ namespace GameTech
             music = gameObject.AddComponent<AudioSource>();
             music.playOnAwake = false;
             music.loop = false;
-            music.volume = 0.05f;
+            music.volume = 1f;
 
             // Connect audio to visualizer if it exists
             if (visualizer != null)
@@ -71,26 +71,50 @@ namespace GameTech
         IEnumerator LoadMusicAndBeatmap()
         {
             // Load beatmap first
-            string beatmapPath = Path.Combine(Application.streamingAssetsPath, "beatmap.json");
-            string json = File.ReadAllText(beatmapPath);
-            notes = JsonHelper.FromJson<BeatmapNote>(json);
+            string beatmapPath;
+            #if UNITY_ANDROID && !UNITY_EDITOR
+                beatmapPath = Path.Combine(Application.streamingAssetsPath, "beatmap.json");
+                using (UnityWebRequest www = UnityWebRequest.Get(beatmapPath))
+                {
+                    yield return www.SendWebRequest();
+                    if (www.result != UnityWebRequest.Result.Success)
+                    {
+                        yield break;
+                    }
+                    string json = www.downloadHandler.text;
+                    notes = JsonHelper.FromJson<BeatmapNote>(json);
+                }
+            #else
+                beatmapPath = Path.Combine(Application.streamingAssetsPath, "beatmap.json");
+                string json = File.ReadAllText(beatmapPath);
+                notes = JsonHelper.FromJson<BeatmapNote>(json);
+            #endif
 
             // Load music
             string musicPath = Path.Combine(Application.streamingAssetsPath, "Song", "audio.mp3");
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(musicPath, AudioType.MPEG))
-            {
-                yield return www.SendWebRequest();
-
-                if (www.result == UnityWebRequest.Result.Success)
+            #if UNITY_ANDROID && !UNITY_EDITOR
+                using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(musicPath, AudioType.MPEG))
                 {
+                    yield return www.SendWebRequest();
+                    if (www.result != UnityWebRequest.Result.Success)
+                    {
+                        yield break;
+                    }
                     music.clip = DownloadHandlerAudioClip.GetContent(www);
                     music.Play();
                 }
-                else
+            #else
+                using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(musicPath, AudioType.MPEG))
                 {
-                    Debug.LogError("Failed to load music: " + www.error);
+                    yield return www.SendWebRequest();
+                    if (www.result != UnityWebRequest.Result.Success)
+                    {
+                        yield break;
+                    }
+                    music.clip = DownloadHandlerAudioClip.GetContent(www);
+                    music.Play();
                 }
-            }
+            #endif
         }
 
         private float timer = 0f;
@@ -113,47 +137,60 @@ namespace GameTech
             GameObject notePrefab = GetNotePrefab(note.type);
             if (notePrefab == null) return;
 
-            // Calculate spawn position based on angle
-            float angleRad = note.angle * Mathf.Deg2Rad;
-            Vector3 spawnPosition = new Vector3(
-                Mathf.Cos(angleRad) * spawnRadius,
-                Mathf.Sin(angleRad) * spawnRadius,
-                0
-            );
-
-            GameObject noteObj = Instantiate(notePrefab, spawnPosition, Quaternion.identity);
-            
-            // Set up note movement
-            NoteMovement movement = noteObj.AddComponent<NoteMovement>();
-            movement.targetPosition = Vector3.zero;
-            movement.speed = noteMovementSpeed;
-            movement.rotationSpeed = noteRotationSpeed;
-            movement.pulseSpeed = notePulseSpeed;
-            movement.pulseAmount = notePulseAmount;
-
-            // Rotate note to face center
-            float angleToCenter = Mathf.Atan2(-spawnPosition.y, -spawnPosition.x) * Mathf.Rad2Deg;
-            noteObj.transform.rotation = Quaternion.Euler(0, 0, angleToCenter);
-
             if (note.type.ToLower() == "shake")
             {
-                currentShakeNote = noteObj;
+                // Spawn shake note in center
+                GameObject noteObj = Instantiate(notePrefab, Vector3.zero, Quaternion.identity);
+                activeNotes.Add(noteObj);
+                
+                // Set up shake note behavior
                 ShakeNote shakeNote = noteObj.GetComponent<ShakeNote>();
                 if (shakeNote != null)
                 {
-                    if (note.duration > 0)
-                    {
-                        shakeNote.duration = note.duration;
-                    }
+                    // Calculate shrink speed based on duration
+                    float shrinkSpeed = 1f / note.duration; // This will make it shrink to fit within the duration
+                    shakeNote.shrinkSpeed = shrinkSpeed;
                     shakeNote.OnNoteCompleted += HandleShakeNoteCompleted;
                 }
+                currentShakeNote = noteObj;
+                isShakeNoteActive = true;
+            }
+            else
+            {
+                // Calculate spawn position based on angle for regular notes
+                float angleRad = note.angle * Mathf.Deg2Rad;
+                Vector3 spawnPosition = new Vector3(
+                    Mathf.Cos(angleRad) * spawnRadius,
+                    Mathf.Sin(angleRad) * spawnRadius,
+                    0
+                );
+
+                GameObject noteObj = Instantiate(notePrefab, spawnPosition, Quaternion.identity);
+                activeNotes.Add(noteObj);
+                
+                // Set up note movement
+                NoteMovement movement = noteObj.AddComponent<NoteMovement>();
+                movement.targetPosition = Vector3.zero;
+                movement.speed = noteMovementSpeed;
+                movement.rotationSpeed = noteRotationSpeed;
+                movement.pulseSpeed = notePulseSpeed;
+                movement.pulseAmount = notePulseAmount;
+
+                // Rotate note to face center
+                float angleToCenter = Mathf.Atan2(-spawnPosition.y, -spawnPosition.x) * Mathf.Rad2Deg;
+                noteObj.transform.rotation = Quaternion.Euler(0, 0, angleToCenter);
             }
         }
 
         void HandleShakeNoteCompleted()
         {
+            if (currentShakeNote != null)
+            {
+                activeNotes.Remove(currentShakeNote);
+                Destroy(currentShakeNote);
+                currentShakeNote = null;
+            }
             isShakeNoteActive = false;
-            currentShakeNote = null;
         }
 
         private GameObject GetNotePrefab(string type)
@@ -167,6 +204,23 @@ namespace GameTech
                 case "shake": return shakeNotePrefab;
                 default: return null;
             }
+        }
+
+        public bool IsAllNotesSpawned()
+        {
+            bool result = notes != null && nextNoteIndex >= notes.Length;
+            return result;
+        }
+
+        public bool HasActiveNotes()
+        {
+            bool result = activeNotes.Count > 0 || isShakeNoteActive;
+            return result;
+        }
+
+        public void RemoveActiveNote(GameObject note)
+        {
+            activeNotes.Remove(note);
         }
     }
 }

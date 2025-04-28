@@ -19,11 +19,10 @@ namespace GameTech
         
         public event Action OnNoteCompleted;
 
-        void Start()
+        private void Start()
         {
             transform.localScale = Vector3.one * 2.0f;
             startTime = Time.time;
-            Debug.Log($"Shake note spawned with duration: {duration}");
             
             // Enable gyro if available
             if (SystemInfo.supportsGyroscope)
@@ -32,24 +31,22 @@ namespace GameTech
             }
         }
 
-        void Update()
+        private void Update()
         {
             float elapsedTime = Time.time - startTime;
             
             // Check if note has expired
             if (elapsedTime >= duration)
             {
-                Debug.Log("Shake note expired");
-                if (!hasScored)
+                if (!shakeRegistered)
                 {
-                    GameManager.Instance.RegisterMiss();
+                    HandleMiss();
                 }
-                HandleMiss();
                 return;
             }
 
             // Calculate size based on elapsed time
-            float size = Mathf.Lerp(1.0f, 0.5f, elapsedTime / duration);
+            float size = Mathf.Lerp(2.0f, targetSize, elapsedTime / duration);
             transform.localScale = new Vector3(size, size, 1f);
 
             // Check for scoring when note is at optimal size
@@ -65,7 +62,7 @@ namespace GameTech
                 if (!canShake && transform.localScale.x <= targetSize)
                 {
                     canShake = true;
-                    TriggerHapticFeedback();
+                    Handheld.Vibrate();
                 }
             }
 
@@ -76,7 +73,7 @@ namespace GameTech
             }
         }
 
-        void TriggerHapticFeedback()
+        /* void TriggerHapticFeedback()
         {
             if (!hapticTriggered)
             {
@@ -96,7 +93,7 @@ namespace GameTech
                 #endif
                 hapticTriggered = true;
             }
-        }
+        } */
 
         void HandleShake()
         {
@@ -110,7 +107,12 @@ namespace GameTech
 
         private void HandleMiss()
         {
-            Destroy(gameObject);
+            if (!shakeRegistered)
+            {
+                GameManager.Instance.RegisterMiss();
+                OnNoteCompleted?.Invoke();
+                Destroy(gameObject);
+            }
         }
     }
 }

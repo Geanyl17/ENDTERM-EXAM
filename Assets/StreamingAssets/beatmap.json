@@ -13,13 +13,13 @@
     },
     {
       "time": 10.418,
-      "type": "circle",
+      "type": "square",
       "duration": 0.462,
       "angle": 20
     },
     {
       "time": 10.880,
-      "type": "triangle",
+      "type": "square",
       "duration": 0.462,
       "angle": 45
     },
@@ -37,13 +37,13 @@
     },
     {
       "time": 12.265,
-      "type": "circle",
+      "type": "triangle",
       "duration": 0.462,
       "angle": 80
     },
     {
       "time": 12.726,
-      "type": "rectangle",
+      "type": "triangle",
       "duration": 0.462,
       "angle": 90
     },
@@ -55,85 +55,73 @@
     },
     {
       "time": 13.649,
-      "type": "square",
+      "type": "circle",
       "duration": 0.462,
-      "angle": 45
+      "angle": 90
     },
     {
       "time": 14.111,
-      "type": "triangle",
+      "type": "rectangle",
       "duration": 0.462,
-      "angle": 90
+      "angle": 0
     },
     {
       "time": 14.572,
       "type": "rectangle",
       "duration": 0.462,
-      "angle": 135
+      "angle": 90
     },
     {
       "time": 15.034,
       "type": "circle",
       "duration": 0.462,
-      "angle": 180
-    },
-    {
-      "time": 15.495,
-      "type": "square",
-      "duration": 0.462,
-      "angle": 225
-    },
-    {
-      "time": 15.957,
-      "type": "triangle",
-      "duration": 0.462,
-      "angle": 270
-    },
-    {
-      "time": 16.418,
-      "type": "rectangle",
-      "duration": 0.462,
-      "angle": 315
-    },
-    {
-      "time": 16.880,
-      "type": "circle",
-      "duration": 0.462,
       "angle": 0
     },
     {
-      "time": 17.341,
+      "time": 15.495,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 125
+    },
+    {
+      "time": 15.957,
       "type": "square",
+      "duration": 0.462,
+      "angle": 175
+    },
+    {
+      "time": 16.418,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 280
+    },
+    {
+      "time": 17.341,
+      "type": "shake",
       "duration": 0.462,
       "angle": 45
     },
     {
-      "time": 17.803,
-      "type": "triangle",
-      "duration": 0.462,
-      "angle": 90
-    },
-    {
       "time": 18.265,
-      "type": "rectangle",
+      "type": "triangle",
       "duration": 0.462,
       "angle": 135
     },
     {
       "time": 18.726,
-      "type": "circle",
+      "type": "triangle",
       "duration": 0.462,
       "angle": 180
     },
     {
       "time": 19.188,
-      "type": "square",
+      "type": "circle",
       "duration": 0.462,
       "angle": 225
     },
     {
       "time": 19.649,
-      "type": "triangle",
+      "type": "circle",
       "duration": 0.462,
       "angle": 270
     },
@@ -145,57 +133,1017 @@
     },
     {
       "time": 20.572,
-      "type": "circle",
+      "type": "rectangle",
       "duration": 0.462,
       "angle": 0
     },
     {
       "time": 21.034,
-      "type": "square",
-      "duration": 0.462,
-      "angle": 45
-    },
-    {
-      "time": 21.495,
-      "type": "triangle",
+      "type": "circle",
       "duration": 0.462,
       "angle": 90
     },
     {
-      "time": 21.957,
-      "type": "rectangle",
+      "time": 21.495,
+      "type": "circle",
       "duration": 0.462,
-      "angle": 135
+      "angle": 45
+    },
+    {
+      "time": 21.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
     },
     {
       "time": 22.418,
-      "type": "circle",
+      "type": "square",
       "duration": 0.462,
-      "angle": 180
+      "angle": 135
     },
     {
       "time": 22.880,
       "type": "square",
       "duration": 0.462,
-      "angle": 225
+      "angle": 180
     },
     {
       "time": 23.341,
-      "type": "triangle",
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 23.803,
+      "type": "circle",
       "duration": 0.462,
       "angle": 270
     },
     {
-      "time": 23.803,
+      "time": 24.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 24.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 25.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 25.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 26.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 26.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 27.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 27.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 27.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 28.419,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 28.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 29.342,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 29.803,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 30.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 30.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 31.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 31.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 32.111,
       "type": "rectangle",
       "duration": 0.462,
       "angle": 315
     },
     {
-      "time": 24.265,
+      "time": 32.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 33.034,
       "type": "circle",
       "duration": 0.462,
       "angle": 0
+    },
+    {
+      "time": 33.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 33.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 34.419,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 34.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 35.342,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 35.803,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 36.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 36.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 37.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 37.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 38.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 38.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 39.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 39.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 39.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 40.419,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 40.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 41.342,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 41.803,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 42.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 42.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 43.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 43.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 44.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 44.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 45.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 45.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 45.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 46.419,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 46.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 47.342,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 47.803,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 48.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 48.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 49.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 49.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 50.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 50.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 51.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 51.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 51.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 52.419,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 52.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 53.342,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 53.803,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 54.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 54.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 55.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 55.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 56.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 56.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 57.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 57.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 57.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 58.419,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 58.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 59.342,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 59.803,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 60.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 60.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 61.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 61.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 62.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 62.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 63.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 63.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 63.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 64.419,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 64.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 65.342,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 65.803,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 66.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 66.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 67.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 67.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 68.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 68.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 69.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 69.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 69.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 70.419,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 70.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 71.342,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 71.803,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 72.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 72.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 73.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 73.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 74.111,
+      "type": "shake"
+    },
+    {
+      "time": 75.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 75.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 75.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 76.419,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 76.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 77.342,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 77.803,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 78.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 78.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 79.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 79.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 80.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 80.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 81.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 81.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 81.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 82.419,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 82.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 83.342,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 83.803,
+      "type": "shake"
+    },
+    {
+      "time": 84.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 85.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 85.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 86.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 86.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 87.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 87.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 87.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 88.419,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 88.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 89.342,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 89.803,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 90.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 90.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 91.188,
+      "type": "shake"
+    },
+    {
+      "time": 92.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 92.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 93.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 93.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 93.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 94.419,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 94.880,
+      "type": "square",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 95.342,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 225
+    },
+    {
+      "time": 95.803,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 270
+    },
+    {
+      "time": 96.265,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 315
+    },
+    {
+      "time": 96.727,
+      "type": "triangle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 97.188,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 97.650,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
+    },
+    {
+      "time": 98.111,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 135
+    },
+    {
+      "time": 98.573,
+      "type": "rectangle",
+      "duration": 0.462,
+      "angle": 180
+    },
+    {
+      "time": 99.034,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 0
+    },
+    {
+      "time": 99.496,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 45
+    },
+    {
+      "time": 99.957,
+      "type": "circle",
+      "duration": 0.462,
+      "angle": 90
     }
 ]
   

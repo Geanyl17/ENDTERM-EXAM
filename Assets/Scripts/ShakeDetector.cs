@@ -48,14 +48,11 @@ public class ShakeDetector : MonoBehaviour
         // Debug values
        // Debug.Log($"Acceleration: {accelerationMagnitude:F2}, Drop: {dropFromGravity:F2}, MaxAccel: {maxAcceleration:F2}, MinDrop: {minDrop:F2}");
 
-        // Detect shake when BOTH conditions are met:
-        // 1. Acceleration is below maxAcceleration
-        // 2. Drop is above minDrop
-        //if (accelerationMagnitude <= maxAcceleration && dropFromGravity >= minDrop)
-       // {
-        //    lastShakeTime = Time.time;
-        //    OnShakeDetected?.Invoke();
-        //}
+        if (accelerationMagnitude <= maxAcceleration && dropFromGravity >= minDrop)
+        {
+          lastShakeTime = Time.time;
+           OnShakeDetected?.Invoke();
+        }
 
         lastAcceleration = currentAcceleration;
     }

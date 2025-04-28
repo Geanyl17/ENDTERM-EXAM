@@ -1,0 +1,94 @@
+Score Screen and Leaderboard Implementation Guide
+
+1. Scripts Created:
+-------------------
+a) ScoreManager.cs
+- Handles score tracking and leaderboard functionality
+- Implements singleton pattern for global access
+- Manages local storage of leaderboard data using JSON
+- Keeps track of top 10 scores
+- Includes methods for adding, getting, and resetting scores
+
+b) GameOverScreen.cs
+- Manages the game over UI
+- Handles player name input with mobile keyboard support
+- Displays final score and leaderboard
+- Implements save score and return to main menu functionality
+
+2. Implementation Steps:
+-----------------------
+1. Create a new scene called "GameOver" or add to existing game scene
+2. Set up UI elements in the scene:
+   - Canvas with UI elements:
+     * TextMeshPro text for final score
+     * TMP_InputField for player name
+     * Save score button
+     * Main menu button
+     * Leaderboard panel
+     * ScrollView with Content object for leaderboard entries
+     * Leaderboard entry prefab (text element)
+
+3. Set up GameObjects:
+   - Create empty GameObject and attach ScoreManager script
+   - Create empty GameObject and attach GameOverScreen script
+   - Assign all UI references in the Inspector
+
+4. Mobile-Specific Configuration:
+   - Input field is configured for mobile keyboard
+   - Character limit set to 15
+   - Alphanumeric validation
+   - Automatic keyboard show/hide
+   - Proper cleanup of keyboard events
+
+5. Leaderboard Features:
+   - Stores top 10 scores
+   - Saves player name, score, and date
+   - Sorts scores in descending order
+   - Persists data between game sessions
+   - Displays in a scrollable list
+
+6. Integration with Game:
+   - Call ScoreManager.Instance.GetCurrentScore() at game end
+   - Load game over scene
+   - Reset score when returning to main menu
+
+3. Code Structure:
+-----------------
+ScoreManager.cs:
+- LeaderboardEntry class for individual scores
+- LeaderboardData class for storing all entries
+- Methods for score management and persistence
+- JSON serialization for local storage
+
+GameOverScreen.cs:
+- UI reference management
+- Mobile keyboard handling
+- Leaderboard display logic
+- Scene navigation
+- Event cleanup
+
+4. Mobile Considerations:
+------------------------
+- TouchScreenKeyboard integration
+- Proper keyboard show/hide management
+- Input field validation
+- Event listener cleanup
+- UI element sizing for touch input
+
+5. Testing Checklist:
+--------------------
+1. Verify score tracking during gameplay
+2. Test keyboard popup on input field tap
+3. Confirm score saving functionality
+4. Check leaderboard sorting and display
+5. Verify data persistence between sessions
+6. Test UI responsiveness on different screen sizes
+7. Confirm proper cleanup of resources
+
+6. Notes:
+--------
+- ScoreManager uses singleton pattern for global access
+- Leaderboard data is stored in Application.persistentDataPath
+- Maximum of 10 scores are kept in the leaderboard
+- Anonymous is used as default name if none provided
+- Keyboard is automatically managed for mobile devices 

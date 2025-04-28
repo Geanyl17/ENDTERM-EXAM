@@ -35,7 +35,6 @@ namespace GameTech
             if (other.CompareTag("HitArea"))
             {
                 GameManager.Instance.RegisterMiss(); // Register hit in GameManager
-                Debug.Log($"Note {noteShape} reached the HitArea!");
                 Destroy(gameObject); // Destroy the note after it reaches the HitArea
             }
         }

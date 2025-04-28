@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace GameTech
 {
@@ -10,6 +11,9 @@ namespace GameTech
 
         public int score = 0;
         public int combo = 0;
+        public int maxCombo = 0; // ADD THIS 🔥
+
+        private ScoreManager scoreManager;
 
         [SerializeField] private NumberDisplay scoreDisplay;
         [SerializeField] private ComboDisplay comboDisplay;
@@ -18,6 +22,8 @@ namespace GameTech
         {
             if (Instance == null) Instance = this;
             else Destroy(gameObject);
+
+            scoreManager = ScoreManager.Instance;
         }
 
         void Start()
@@ -27,11 +33,28 @@ namespace GameTech
             UpdateComboDisplay();
         }
 
+        public int GetMaxCombo()
+        {
+            return maxCombo;
+        }
+
+        public int GetScore()
+        {
+            return score;
+        }
         public void RegisterHit()
         {
             combo++;
             score += 100 * combo;
-            Debug.Log($"✅ HIT | Score: {score} | Combo: {combo}");
+            
+            // 🔥 Update max combo if current combo is higher
+            if (combo > maxCombo)
+            {
+                maxCombo = combo;
+                
+            }
+
+            Debug.Log($"✅ HIT | Score: {score} | Combo: {combo} | Max Combo: {maxCombo}");
             UpdateScoreDisplay();
             UpdateComboDisplay();
         }
