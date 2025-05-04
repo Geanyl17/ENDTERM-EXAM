@@ -165,5 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a227edf19fb57e4a9533044d512b3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffectPrefab: {fileID: 6938022198904711847, guid: a6add52fc8143f144ab9baa41ffdd7b1, type: 3}
   noteShape: 1
   moveSpeed: 5

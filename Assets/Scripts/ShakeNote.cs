@@ -16,6 +16,8 @@ namespace GameTech
         private float startTime;
         private bool hapticTriggered = false;
         private bool hasScored = false;
+        private ShakeDetector shakeDetector;
+
         
         public event Action OnNoteCompleted;
 
@@ -28,6 +30,12 @@ namespace GameTech
             if (SystemInfo.supportsGyroscope)
             {
                 Input.gyro.enabled = true;
+            }
+
+            shakeDetector = FindFirstObjectByType<ShakeDetector>();
+            if (shakeDetector != null)
+            {
+                shakeDetector.OnShakeDetected += HandleShake;
             }
         }
 
@@ -65,15 +73,9 @@ namespace GameTech
                     Handheld.Vibrate();
                 }
             }
-
-            // Check for shake input
-            if (Input.acceleration.magnitude > shakeThreshold)
-            {
-                HandleShake();
-            }
         }
 
-        /* void TriggerHapticFeedback()
+        void TriggerHapticFeedback()
         {
             if (!hapticTriggered)
             {
@@ -93,13 +95,14 @@ namespace GameTech
                 #endif
                 hapticTriggered = true;
             }
-        } */
+        }
 
         void HandleShake()
         {
             if (canShake && !shakeRegistered)
             {
                 shakeRegistered = true;
+                TriggerHapticFeedback();
                 OnNoteCompleted?.Invoke();
                 Destroy(gameObject);
             }
@@ -114,5 +117,14 @@ namespace GameTech
                 Destroy(gameObject);
             }
         }
+
+        private void OnDestroy()
+        {
+            if (shakeDetector != null)
+            {
+                shakeDetector.OnShakeDetected -= HandleShake;
+            }
+        }
+
     }
 }

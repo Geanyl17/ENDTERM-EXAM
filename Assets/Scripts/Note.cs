@@ -3,7 +3,9 @@ using UnityEngine;
 namespace GameTech
 {
     public class Note : MonoBehaviour
+    
     {
+        public GameObject hitEffectPrefab; // Assign in Inspector
         public HitAreaShape noteShape;
         public float moveSpeed = 5f;
 
@@ -34,7 +36,7 @@ namespace GameTech
         {
             if (other.CompareTag("HitArea"))
             {
-                GameManager.Instance.RegisterMiss(); // Register hit in GameManager
+                GameManager.Instance.RegisterMiss(); // Register a miss in the GameManager
                 Destroy(gameObject); // Destroy the note after it reaches the HitArea
             }
         }

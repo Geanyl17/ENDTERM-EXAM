@@ -17,6 +17,10 @@ namespace GameTech
 
         [SerializeField] private NumberDisplay scoreDisplay;
         [SerializeField] private ComboDisplay comboDisplay;
+        [SerializeField] private GameObject circleParticle;
+        [SerializeField] private GameObject squareParticle; 
+        [SerializeField] private GameObject triangleParticle;
+        [SerializeField] private GameObject rectangleParticle;
 
         void Awake()
         {
@@ -42,7 +46,7 @@ namespace GameTech
         {
             return score;
         }
-        public void RegisterHit()
+        public void RegisterHit(string noteType = null, Vector3 position = default)
         {
             combo++;
             score += 100 * combo;
@@ -53,10 +57,41 @@ namespace GameTech
                 maxCombo = combo;
                 
             }
+            
+            if (noteType != null && position != default)
+            {
+                SpawnParticle(noteType, position);
+            }
 
             Debug.Log($"✅ HIT | Score: {score} | Combo: {combo} | Max Combo: {maxCombo}");
             UpdateScoreDisplay();
             UpdateComboDisplay();
+        }
+
+        public void SpawnParticle(string noteType, Vector3 position)
+        {
+            GameObject particlePrefab = null;
+            
+            switch (noteType.ToLower())
+            {
+                case "circle":
+                    particlePrefab = circleParticle;
+                    break;
+                case "square":
+                    particlePrefab = squareParticle;
+                    break;
+                case "triangle":
+                    particlePrefab = triangleParticle;
+                    break;
+                case "rectangle":
+                    particlePrefab = rectangleParticle;
+                    break;
+            }
+            
+            if (particlePrefab != null)
+            {
+                Instantiate(particlePrefab, position, Quaternion.identity);
+            }
         }
 
         public void RegisterMiss()

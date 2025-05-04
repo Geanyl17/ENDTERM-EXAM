@@ -10,7 +10,11 @@ namespace GameTech
         public float rotationSpeed = 180f; // Degrees per second
         public float pulseSpeed = 2f; // Pulses per second (2 = one complete cycle per second)
         public float pulseAmount = 0.2f; // How much to add to default size
-
+        public HitAreaShape noteShape;
+        public GameObject circleParticle;
+        public GameObject triangleParticle;
+        public GameObject squareParticle;
+        public GameObject rectangleParticle;
         private NoteSpawner noteSpawner;
         private float pulseTimer = 0f;
         private bool hasScored = false;
@@ -44,12 +48,18 @@ namespace GameTech
             {
                 pulseTimer = 0f;
             }
-
+ 
             // Check if note is close to center for scoring
             if (!hasScored && Vector3.Distance(transform.position, targetPosition) < 0.5f)
             {
                 hasScored = true;
                 GameManager.Instance.RegisterHit();
+
+                GameObject particle = GetParticleForShape();
+                if (particle != null)
+                {
+                    Instantiate(particle, transform.position, Quaternion.identity);
+                }
             }
 
             // Destroy when reaching target
@@ -75,5 +85,18 @@ namespace GameTech
                 noteSpawner.RemoveActiveNote(gameObject);
             }
         }
+
+        private GameObject GetParticleForShape()
+        {
+            return noteShape switch
+            {
+                HitAreaShape.Circle => circleParticle,
+                HitAreaShape.Triangle => triangleParticle,
+                HitAreaShape.Square => squareParticle,
+                HitAreaShape.Rectangle => rectangleParticle,
+                _ => null
+            };
+        }
+
     }
 } 

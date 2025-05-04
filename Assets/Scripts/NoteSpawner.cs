@@ -167,7 +167,7 @@ namespace GameTech
 
                 GameObject noteObj = Instantiate(notePrefab, spawnPosition, Quaternion.identity);
                 activeNotes.Add(noteObj);
-                
+            
                 // Set up note movement
                 NoteMovement movement = noteObj.AddComponent<NoteMovement>();
                 movement.targetPosition = Vector3.zero;

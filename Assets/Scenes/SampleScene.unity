@@ -1119,6 +1119,9 @@ MonoBehaviour:
   minDrop: 0.2
   minShakeInterval: 0.5
   checkInterval: 0.1
+  lowPassFilterFactor: 0.1
+  expectedGravity: 1
+  showDebug: 1
 --- !u!4 &461510172
 Transform:
   m_ObjectHideFlags: 0
