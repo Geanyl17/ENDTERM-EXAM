@@ -53,13 +53,9 @@ namespace GameTech
             if (!hasScored && Vector3.Distance(transform.position, targetPosition) < 0.5f)
             {
                 hasScored = true;
-                GameManager.Instance.RegisterHit();
+                string type = noteShape.ToString();
+                GameManager.Instance.RegisterHit(type, transform.position);
 
-                GameObject particle = GetParticleForShape();
-                if (particle != null)
-                {
-                    Instantiate(particle, transform.position, Quaternion.identity);
-                }
             }
 
             // Destroy when reaching target
@@ -84,18 +80,6 @@ namespace GameTech
             {
                 noteSpawner.RemoveActiveNote(gameObject);
             }
-        }
-
-        private GameObject GetParticleForShape()
-        {
-            return noteShape switch
-            {
-                HitAreaShape.Circle => circleParticle,
-                HitAreaShape.Triangle => triangleParticle,
-                HitAreaShape.Square => squareParticle,
-                HitAreaShape.Rectangle => rectangleParticle,
-                _ => null
-            };
         }
 
     }
