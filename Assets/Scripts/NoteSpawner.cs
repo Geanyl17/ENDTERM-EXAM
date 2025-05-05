@@ -148,7 +148,7 @@ namespace GameTech
                 if (shakeNote != null)
                 {
                     // Calculate shrink speed based on duration
-                    float shrinkSpeed = 1f / note.duration; // This will make it shrink to fit within the duration
+                    float shrinkSpeed = 1f / note.duration;
                     shakeNote.shrinkSpeed = shrinkSpeed;
                     shakeNote.OnNoteCompleted += HandleShakeNoteCompleted;
                 }

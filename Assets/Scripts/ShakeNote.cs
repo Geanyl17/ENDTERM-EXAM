@@ -43,60 +43,80 @@ namespace GameTech
         {
             float elapsedTime = Time.time - startTime;
             
-            // Check if note has expired
-            if (elapsedTime >= duration)
-            {
-                if (!shakeRegistered)
-                {
-                    HandleMiss();
-                }
-                return;
-            }
-
-            // Calculate size based on elapsed time
+            // Calculate size (shrinking from 2.0 → 0.5)
             float size = Mathf.Lerp(2.0f, targetSize, elapsedTime / duration);
             transform.localScale = new Vector3(size, size, 1f);
 
-            // Check for scoring when note is at optimal size
-            if (!hasScored && elapsedTime >= duration * 0.5f)
+            // NEW: Allow shaking when scale <= 1.0 (instead of waiting for targetSize)
+            if (!canShake && size <= 1.0f)
             {
-                hasScored = true;
-                GameManager.Instance.RegisterHit();
-            }
-
-            if (!shakeRegistered)
-            {
-                // Check if we can shake now
-                if (!canShake && transform.localScale.x <= targetSize)
+                canShake = true;
+                if (!hapticTriggered)
                 {
-                    canShake = true;
-                    Handheld.Vibrate();
+                    TriggerHapticFeedback();
+                    hapticTriggered = true;
                 }
             }
-        }
 
-        void TriggerHapticFeedback()
-        {
-            if (!hapticTriggered)
+            // Debug log to track scale and shake state
+            Debug.Log($"Scale: {size:F2} | CanShake: {canShake} | ShakeRegistered: {shakeRegistered}");
+
+            // Check for miss if note expires without shaking
+            if (elapsedTime >= duration && !shakeRegistered)
             {
-                #if UNITY_ANDROID && !UNITY_EDITOR
-                    using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-                    {
-                        using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
-                        {
-                            using (AndroidJavaObject vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator"))
-                            {
-                                vibrator.Call("vibrate", 100);
-                            }
-                        }
-                    }
-                #elif UNITY_IOS && !UNITY_EDITOR
-                    Handheld.Vibrate();
-                #endif
-                hapticTriggered = true;
+                HandleMiss();
             }
         }
 
+            void TriggerHapticFeedback()
+            {
+                if (hapticTriggered) return;
+
+            #if UNITY_ANDROID && !UNITY_EDITOR
+                try
+                {
+                    // Get Android vibration service with proper error handling
+                    using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+                    using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+                    using (AndroidJavaObject vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator"))
+                    {
+                        // Check if vibration is supported
+                        bool hasVibrator = vibrator.Call<bool>("hasVibrator");
+                        
+                        if (hasVibrator)
+                        {
+                            // Standard vibration pattern (300ms)
+                            long[] pattern = { 0, 300 }; // Immediate start, 300ms duration
+                            vibrator.Call("vibrate", pattern, -1); // -1 = no repeat
+                            
+                            Debug.Log("Android vibration triggered successfully");
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Vibration not available on this device");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Vibration error: " + e.Message);
+                }
+            #elif UNITY_IOS && !UNITY_EDITOR
+                // iOS uses a more pronounced vibration pattern
+                if (iOSHapticFeedback.IsSupported())
+                {
+                    iOSHapticFeedback.Trigger(iOSHapticFeedback.iOSFeedbackType.ImpactMedium);
+                }
+                else
+                {
+                    Handheld.Vibrate();
+                }
+                Debug.Log("iOS vibration triggered");
+            #endif
+
+                hapticTriggered = true;
+            }
+            
         void HandleShake()
         {
             if (canShake && !shakeRegistered)

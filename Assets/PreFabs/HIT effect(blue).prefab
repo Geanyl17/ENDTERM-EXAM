@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8626367273889846539}
   - component: {fileID: 6944489135614570221}
   - component: {fileID: 414235788746776304}
+  - component: {fileID: 2722296301232397920}
   m_Layer: 0
   m_Name: HIT effect(blue)
   m_TagString: Untagged
@@ -4891,3 +4892,17 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2722296301232397920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6938022198904711847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e2f37dd7d0e6d74d9ef46706e812b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 1
+  autoDestroy: 1

@@ -153,6 +153,11 @@ MonoBehaviour:
   maxCombo: 0
   scoreDisplay: {fileID: 1059648725}
   comboDisplay: {fileID: 1915631378}
+  circleParticle: {fileID: 6938022198904711847, guid: 8d151b3be80b67b48896f80ec9f7817a, type: 3}
+  squareParticle: {fileID: 6938022198904711847, guid: a6add52fc8143f144ab9baa41ffdd7b1, type: 3}
+  triangleParticle: {fileID: 6938022198904711847, guid: e5abb9ab10d5e754d85d4259e37dd834, type: 3}
+  rectangleParticle: {fileID: 6938022198904711847, guid: 40d39fb91af4d004991109b35b3c89cd, type: 3}
+  particleScale: 1
 --- !u!4 &50855547
 Transform:
   m_ObjectHideFlags: 0
@@ -1121,7 +1126,7 @@ MonoBehaviour:
   checkInterval: 0.1
   lowPassFilterFactor: 0.1
   expectedGravity: 1
-  showDebug: 1
+  showDebug: 0
 --- !u!4 &461510172
 Transform:
   m_ObjectHideFlags: 0

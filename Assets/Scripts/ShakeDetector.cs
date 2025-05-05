@@ -68,12 +68,12 @@ public class ShakeDetector : MonoBehaviour
         float accelMagnitude = _lowPassValue.magnitude;
         float dropFromGravity = expectedGravity - accelMagnitude;
 
-        if (showDebug)
+        /*if (showDebug)
         {
             Debug.Log($"Accel: {accelMagnitude:F2} | " +
                      $"Drop: {dropFromGravity:F2} | " +
                      $"Filtered: {_lowPassValue}");
-        }
+        }*/
 
         // Detection condition
         if (accelMagnitude <= maxAcceleration && dropFromGravity >= minDrop)
